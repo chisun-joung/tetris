@@ -3,9 +3,11 @@ package com.example.chisunjoung.tetris
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import com.example.chisunjoung.tetris.storage.AppPreferences
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,7 +32,12 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun onBtnResetScoreClick(view: View) {}
+    private fun onBtnResetScoreClick(view: View) {
+        val preferences = AppPreferences(this)
+        preferences.clearHighScore()
+        Snackbar.make(view,"Score successfully reset", Snackbar.LENGTH_SHORT).show()
+        tvHighScore?.text = "High score: ${preferences.getHighScore()}"
+    }
 
     private fun onBtnExitClick(view: View) {
         System.exit(0)
